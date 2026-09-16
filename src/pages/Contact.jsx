@@ -496,22 +496,22 @@ function Contact() {
     {
       icon: Mail,
       title: "Direct Email",
-      text: "hello@routesense.dev",
-      href: "mailto:hello@routesense.dev",
+      text: "ansarimuhammad2005@gmail.com",
+      href: "mailto:ansarimuhammad2005@gmail.com",
       isExternal: false,
     },
     {
       icon: GithubIcon,
       title: "GitHub Repository",
-      text: "github.com/routesense",
-      href: "https://github.com",
+      text: "github.com/hacktivist2005",
+      href: "https://github.com/hacktivist2005",
       isExternal: true,
     },
     {
       icon: LinkedinIcon,
       title: "LinkedIn Page",
-      text: "linkedin.com/company/routesense",
-      href: "https://linkedin.com",
+      text: "linkedin.com/company/mohamed",
+      href: "https://linkedin.com/mohamed-ansari-5ab548321",
       isExternal: true,
     },
     {
