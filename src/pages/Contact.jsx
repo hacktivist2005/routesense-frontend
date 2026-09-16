@@ -511,7 +511,7 @@ function Contact() {
       icon: LinkedinIcon,
       title: "LinkedIn Page",
       text: "linkedin.com/company/mohamed",
-      href: "https://linkedin.com/mohamed-ansari-5ab548321",
+      href: "https://linkedin.com/in/mohamed-ansari-5ab548321",
       isExternal: true,
     },
     {
