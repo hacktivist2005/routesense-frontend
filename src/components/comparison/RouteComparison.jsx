@@ -93,15 +93,29 @@ function RouteComparison() {
           {/* Header */}
 
           <div className="relative mb-8">
-            <div className="mb-3 flex items-center gap-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-cyan-400/10 text-cyan-400">
-                <GitCompare size={16} />
-              </div>
+            <div className="mb-3 flex flex-wrap items-center gap-3">
+  <div className="flex items-center gap-2">
+    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-cyan-400/10 text-cyan-400">
+      <GitCompare size={16} />
+    </div>
 
-              <span className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-400">
-                Route Comparison
-              </span>
-            </div>
+    <span className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-400">
+      Route Comparison
+    </span>
+  </div>
+
+  <span
+    className={`rounded-full border px-3 py-1 text-[10px] font-semibold ${
+      agentConnected
+        ? "border-emerald-400/20 bg-emerald-400/[0.06] text-emerald-400"
+        : "border-red-400/20 bg-red-400/[0.06] text-red-400"
+    }`}
+  >
+    {agentConnected
+      ? "Local Agent Connected"
+      : "Local Agent Offline"}
+  </span>
+</div>
 
             <h2 className="text-2xl font-bold text-white md:text-3xl">
               Compare Network Paths
