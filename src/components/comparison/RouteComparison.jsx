@@ -92,40 +92,59 @@ function RouteComparison() {
 
           {/* Header */}
 
-          <div className="relative mb-8">
-            <div className="mb-3 flex flex-wrap items-center gap-3">
-  <div className="flex items-center gap-2">
-    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-cyan-400/10 text-cyan-400">
-      <GitCompare size={16} />
+          {/* Header */}
+
+<div className="relative mb-8">
+
+  <div className="flex items-start justify-between gap-6">
+
+    <div>
+      <div className="mb-3 flex items-center gap-2">
+        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-cyan-400/10 text-cyan-400">
+          <GitCompare size={16} />
+        </div>
+
+        <span className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-400">
+          Route Comparison
+        </span>
+      </div>
+
+      <h2 className="text-2xl font-bold text-white md:text-3xl">
+        Compare Network Paths
+      </h2>
+
+      <p className="mt-2 max-w-2xl text-sm text-slate-500">
+        Compare latency, packet loss, route length and
+        network health between two destinations.
+      </p>
     </div>
 
-    <span className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-400">
-      Route Comparison
-    </span>
+    {/* Local Agent Status */}
+
+    <div
+      className={`mt-1 flex shrink-0 items-center gap-2 rounded-full border px-4 py-2 ${
+        agentConnected
+          ? "border-emerald-400/20 bg-emerald-400/[0.06] text-emerald-400"
+          : "border-red-400/20 bg-red-400/[0.06] text-red-400"
+      }`}
+    >
+      <span
+        className={`h-2.5 w-2.5 rounded-full ${
+          agentConnected
+            ? "bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.8)]"
+            : "bg-red-400 shadow-[0_0_10px_rgba(248,113,113,0.8)]"
+        }`}
+      />
+
+      <span className="font-mono text-[11px] font-bold uppercase tracking-wider">
+        {agentConnected
+          ? "Local Agent Connected"
+          : "Local Agent Offline"}
+      </span>
+    </div>
+
   </div>
-
-  <span
-  className={`rounded-full border px-3 py-1 text-[10px] font-semibold ${
-    agentConnected
-      ? "border-emerald-400/20 bg-emerald-400/[0.06] text-emerald-400"
-      : "border-red-400/20 bg-red-400/[0.06] text-red-400"
-  }`}
->
-  {agentConnected
-    ? "Local Agent Connected"
-    : "Local Agent Offline"}
-</span>
 </div>
-
-            <h2 className="text-2xl font-bold text-white md:text-3xl">
-              Compare Network Paths
-            </h2>
-
-            <p className="mt-2 max-w-2xl text-sm text-slate-500">
-              Compare latency, packet loss, route length and
-              network health between two destinations.
-            </p>
-          </div>
 
           {/* INPUTS */}
 
