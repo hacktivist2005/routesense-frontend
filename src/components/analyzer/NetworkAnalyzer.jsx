@@ -1,5 +1,8 @@
 import { useState } from "react";
-import { analyzeTarget } from "../../services/api";
+import {
+  analyzeTarget,
+  checkLocalAgent,
+} from "../../services/api";
 import RouteVisualization from "./RouteVisualization";
 import HealthScoreCard from "./HealthScoreCard";
 import DiagnosticsPanel from "./DiagnosticsPanel";
@@ -25,6 +28,20 @@ function NetworkAnalyzer() {
   const [status, setStatus] = useState("idle");
   const [result, setResult] = useState(null);
   const [error, setError] = useState("");
+  const [agentConnected, setAgentConnected] = useState(false);
+
+  useEffect(() => {
+  const checkAgent = async () => {
+    const agent = await checkLocalAgent();
+    setAgentConnected(agent.connected);
+  };
+
+  checkAgent();
+
+  const interval = setInterval(checkAgent, 5000);
+
+  return () => clearInterval(interval);
+}, []);
 
   const handleAnalyze = async () => {
     if (!target.trim()) {
@@ -88,15 +105,39 @@ function NetworkAnalyzer() {
             </div>
 
             {/* STATUS BADGE */}
-            <div className="flex w-fit items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3.5 py-1.5 backdrop-blur-md">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
-              </span>
-              <span className="text-xs font-mono font-bold uppercase text-emerald-400">
-                Engine Ready
-              </span>
-            </div>
+            <div
+  className={`flex w-fit items-center gap-2 rounded-full border px-3.5 py-1.5 backdrop-blur-md ${
+    agentConnected
+      ? "border-emerald-500/30 bg-emerald-500/10"
+      : "border-rose-500/30 bg-rose-500/10"
+  }`}
+>
+  <span className="relative flex h-2 w-2">
+    {agentConnected && (
+      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+    )}
+
+    <span
+      className={`relative inline-flex h-2 w-2 rounded-full ${
+        agentConnected
+          ? "bg-emerald-400"
+          : "bg-rose-400"
+      }`}
+    />
+  </span>
+
+  <span
+    className={`text-xs font-mono font-bold uppercase ${
+      agentConnected
+        ? "text-emerald-400"
+        : "text-rose-400"
+    }`}
+  >
+    {agentConnected
+      ? "Local Agent Connected"
+      : "Local Agent Offline"}
+  </span>
+</div>
           </div>
 
           {/* INPUT COMMAND BAR */}
