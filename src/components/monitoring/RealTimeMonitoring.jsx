@@ -12,6 +12,8 @@ import {
   XCircle,
 } from "lucide-react";
 
+import { checkLocalAgent } from "../../services/api";
+
 const API_URL = "http://127.0.0.1:5000/api/analyze";
 
 function RealTimeMonitoring() {
@@ -20,6 +22,7 @@ function RealTimeMonitoring() {
 
   const [monitoring, setMonitoring] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [agentConnected, setAgentConnected] = useState(false);
 
   const [currentData, setCurrentData] = useState(null);
   const [history, setHistory] = useState([]);
@@ -311,6 +314,24 @@ if (routeChanged) {
   };
 
   // -----------------------------------------
+// Local Agent Connection
+// -----------------------------------------
+
+useEffect(() => {
+  const checkAgent = async () => {
+    const agent = await checkLocalAgent();
+    setAgentConnected(agent.connected);
+  };
+
+  checkAgent();
+
+  const interval = setInterval(checkAgent, 5000);
+
+  return () => clearInterval(interval);
+}, []);
+
+
+  // -----------------------------------------
   // Cleanup
   // -----------------------------------------
 
@@ -479,19 +500,57 @@ if (routeChanged) {
               }`}
             >
 
-              <span
-                className={`h-2 w-2 rounded-full ${
-                  monitoring
-                    ? "animate-pulse bg-emerald-400"
-                    : "bg-slate-600"
-                }`}
-              />
+              <div className="flex flex-wrap items-center gap-3">
 
-              <span className="text-xs font-medium">
-                {monitoring
-                  ? "Monitoring Active"
-                  : "Monitoring Stopped"}
-              </span>
+  {/* Local Agent Status */}
+
+  <div
+    className={`flex w-fit items-center gap-2 rounded-full border px-4 py-2 ${
+      agentConnected
+        ? "border-emerald-400/20 bg-emerald-400/[0.06] text-emerald-400"
+        : "border-red-400/20 bg-red-400/[0.06] text-red-400"
+    }`}
+  >
+    <span
+      className={`h-2.5 w-2.5 rounded-full ${
+        agentConnected
+          ? "bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.8)]"
+          : "bg-red-400 shadow-[0_0_10px_rgba(248,113,113,0.8)]"
+      }`}
+    />
+
+    <span className="font-mono text-[11px] font-bold uppercase tracking-wider">
+      {agentConnected
+        ? "Local Agent Connected"
+        : "Local Agent Offline"}
+    </span>
+  </div>
+
+  {/* Monitoring Status */}
+
+  <div
+    className={`flex w-fit items-center gap-2 rounded-full border px-3 py-2 ${
+      monitoring
+        ? "border-emerald-400/20 bg-emerald-400/[0.05] text-emerald-300"
+        : "border-white/[0.08] bg-white/[0.02] text-slate-500"
+    }`}
+  >
+    <span
+      className={`h-2 w-2 rounded-full ${
+        monitoring
+          ? "animate-pulse bg-emerald-400"
+          : "bg-slate-600"
+      }`}
+    />
+
+    <span className="text-xs font-medium">
+      {monitoring
+        ? "Monitoring Active"
+        : "Monitoring Stopped"}
+    </span>
+  </div>
+
+</div>
 
             </div>
 
