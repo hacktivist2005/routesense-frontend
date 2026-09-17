@@ -1,5 +1,8 @@
-import { useState } from "react";
-import { analyzeTarget } from "../../services/api";
+import { useEffect, useState } from "react";
+import {
+  analyzeTarget,
+  checkLocalAgent,
+} from "../../services/api";
 import {
   ArrowRight,
   Activity,
@@ -19,6 +22,20 @@ function RouteComparison() {
   const [status, setStatus] = useState("idle");
   const [comparison, setComparison] = useState(null);
   const [error, setError] = useState("");
+  const [agentConnected, setAgentConnected] = useState(false);
+
+  useEffect(() => {
+  const checkAgent = async () => {
+    const agent = await checkLocalAgent();
+    setAgentConnected(agent.connected);
+  };
+
+  checkAgent();
+
+  const interval = setInterval(checkAgent, 5000);
+
+  return () => clearInterval(interval);
+}, []);
 
   const handleCompare = async () => {
     if (!targetA.trim() || !targetB.trim()) {
