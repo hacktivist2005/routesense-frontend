@@ -105,16 +105,16 @@ function RouteComparison() {
   </div>
 
   <span
-    className={`rounded-full border px-3 py-1 text-[10px] font-semibold ${
-      agentConnected
-        ? "border-emerald-400/20 bg-emerald-400/[0.06] text-emerald-400"
-        : "border-red-400/20 bg-red-400/[0.06] text-red-400"
-    }`}
-  >
-    {agentConnected
-      ? "Local Agent Connected"
-      : "Local Agent Offline"}
-  </span>
+  className={`rounded-full border px-3 py-1 text-[10px] font-semibold ${
+    agentConnected
+      ? "border-emerald-400/20 bg-emerald-400/[0.06] text-emerald-400"
+      : "border-red-400/20 bg-red-400/[0.06] text-red-400"
+  }`}
+>
+  {agentConnected
+    ? "Local Agent Connected"
+    : "Local Agent Offline"}
+</span>
 </div>
 
             <h2 className="text-2xl font-bold text-white md:text-3xl">
